@@ -76,6 +76,10 @@
             }
           },
           "defaultConfiguration": "development"
+          ,"options": {
+            "poll": 1
+          }
+
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -106,5 +110,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
