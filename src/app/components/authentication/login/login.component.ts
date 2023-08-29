@@ -20,7 +20,7 @@ export class LoginComponent {
     this.authService.login({ username: this.username, password: this.password }).subscribe((res: any) => {
       console.log(res);
       localStorage.setItem('token', res.token);
-      this.route.navigate(['/home']);
+      this.route.navigate(['/home/todos']);
     })
   }
 

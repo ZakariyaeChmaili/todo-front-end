@@ -8,11 +8,11 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { AuthenticationModule } from 'src/app/components/authentication/authentication.module';
 import { RouterModule } from '@angular/router';
 import { TodoModule } from 'src/app/components/layout/todo.module';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +22,9 @@ import { TodoModule } from 'src/app/components/layout/todo.module';
     RouterModule,
 
   ],
-  providers: [],
+  providers: [
+    MessageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

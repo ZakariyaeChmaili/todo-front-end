@@ -1,0 +1,38 @@
+<div class="container px-5">
+  <h1 mat-dialog-title>Add Your Task</h1>
+<div class="row justify-content-end">
+  <button (click)="addSubtask()" mat-fab extended color="primary">
+    <mat-icon>add</mat-icon>
+    SubTask
+  </button>
+</div>
+<form mat-dialog-content class="p-3" [formGroup]="taskForm">
+
+  <mat-form-field appearance="outline" >
+    <mat-label>Task</mat-label>
+
+    <input matInput  placeholder="Enter your task" formControlName="task">
+    <mat-icon matSuffix>assignment</mat-icon>
+  </mat-form-field>
+  <div formArrayName="subtasks">
+    <div   *ngFor="let subTask of subTaskForms.controls; let i = index" [formGroupName]="i">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Subtask {{ i + 1 }}</mat-label>
+        <input matInput placeholder="Enter subtask" formControlName="subtask">
+        <button (click)="removeSubTask(i)" color="warn" matSuffix mat-icon-button>
+          <mat-icon  >remove</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+  </div>
+
+
+</form>
+
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+  <button mat-raised-button color="accent" (click)="addTask()" cdkFocusInitial>Save</button>
+</div>
+
+</div>

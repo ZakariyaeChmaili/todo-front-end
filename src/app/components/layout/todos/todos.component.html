@@ -1,1 +1,53 @@
-<p>todos works!</p>
+<div class="d-flex justify-content-center mt-5">
+
+
+  <ng-container *ngIf="todos">
+    <mat-card class="col col-7 ">
+      <mat-card-header class="justify-content-between">
+        <mat-card-title>
+          <span class="lead">Todos </span>
+        </mat-card-title>
+
+    <ng-container *ngIf="this.selectedNodes.length>0">
+      <div class="actions d-flex gap-3">
+        <button (click)="delete()" mat-fab color="accent"  >
+          <mat-icon >delete</mat-icon>
+        </button>
+      </div>
+
+    </ng-container>
+
+
+
+        <button (click)="addTodo()" mat-mini-fab color="accent" aria-label="add todo">
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-card-header>
+      <mat-card-content class="m-4">
+        <p-tree class="custom-tree" (onNodeSelect)="selectedNode($event)" (onNodeUnselect)="unselectNode($event)" [filter]="true" filterMode="strict" filterPlaceholder="Search" [value]="todos" selectionMode="checkbox">
+          <div class="p-tree-container">
+            <ng-template let-node >
+              {{node | json }}
+              <div [ngClass]="{ 'test': true, 'disabled-node': node.completed }">
+                <span class="p-treenode-content" [attr.disabled]="node.disabled ? true : null"  >
+                  <span>fdf</span>
+                </span>
+              </div>
+            </ng-template>
+          </div>
+        </p-tree>
+
+
+      </mat-card-content>
+
+    </mat-card>
+  </ng-container>
+
+
+
+
+
+
+
+
+</div>
