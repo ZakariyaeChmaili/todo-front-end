@@ -1,18 +1,23 @@
 <div class="d-flex justify-content-center mt-5">
 
 
-  <ng-container *ngIf="todos">
+  <ng-container >
     <mat-card class="col col-7 ">
       <mat-card-header class="justify-content-between">
         <mat-card-title>
           <span class="lead">Todos </span>
         </mat-card-title>
 
-    <ng-container *ngIf="this.selectedNodes.length>0">
+    <ng-container >
       <div class="actions d-flex gap-3">
-        <button (click)="delete()" mat-fab color="accent"  >
+        <button *ngIf="this.checklistSelection.selected.length>0" (click)="delete()" mat-fab color="primary"  >
           <mat-icon >delete</mat-icon>
         </button>
+        <button *ngIf="this.checklistSelection.selected.length==1" (click)="update()" mat-fab color="accent">
+            <mat-icon>update</mat-icon>
+          </button>
+          
+          
       </div>
 
     </ng-container>
@@ -24,18 +29,49 @@
         </button>
       </mat-card-header>
       <mat-card-content class="m-4">
-        <p-tree class="custom-tree" (onNodeSelect)="selectedNode($event)" (onNodeUnselect)="unselectNode($event)" [filter]="true" filterMode="strict" filterPlaceholder="Search" [value]="todos" selectionMode="checkbox">
+        <!-- <p-tree class="custom-tree" (onNodeSelect)="selectedNode($event)" (onNodeUnselect)="unselectNode($event)" [filter]="true" filterMode="strict" filterPlaceholder="Search" [value]="todos" selectionMode="checkbox">
           <div class="p-tree-container">
             <ng-template let-node >
-              {{node | json }}
-              <div [ngClass]="{ 'test': true, 'disabled-node': node.completed }">
-                <span class="p-treenode-content" [attr.disabled]="node.disabled ? true : null"  >
-                  <span>fdf</span>
+              <div>
+                <span class="p-treenode-content"  >
                 </span>
               </div>
             </ng-template>
           </div>
-        </p-tree>
+        </p-tree> -->
+
+
+
+        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+            <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+              <button mat-icon-button disabled></button>
+              <mat-checkbox class="checklist-leaf-node"
+                            [checked]="checklistSelection.isSelected(node)"
+                            (change)="todoLeafItemSelectionToggle(node)">{{node.item}}</mat-checkbox>
+            </mat-tree-node>
+          
+            <!-- <mat-tree-node *matTreeNodeDef="let node; when: hasNoContent" matTreeNodePadding>
+              <button mat-icon-button disabled></button>
+              <mat-form-field>
+                <mat-label>New item...</mat-label>
+                <input matInput #itemValue placeholder="Ex. Lettuce">
+              </mat-form-field>
+              <button mat-button (click)="saveNode(node, itemValue.value)">Save</button>
+            </mat-tree-node> -->
+          
+            <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+              <button mat-icon-button matTreeNodeToggle
+                      [attr.aria-label]="'Toggle ' + node.item">
+                <mat-icon class="mat-icon-rtl-mirror">
+                  {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                </mat-icon>
+              </button>
+              <mat-checkbox [checked]="descendantsAllSelected(node)"
+                            [indeterminate]="descendantsPartiallySelected(node)"
+                            (change)="todoItemSelectionToggle(node)">{{node.item}}</mat-checkbox>
+              <!-- <button mat-icon-button (click)="addNewItem(node)"><mat-icon>add</mat-icon></button> -->
+            </mat-tree-node>
+          </mat-tree>
 
 
       </mat-card-content>

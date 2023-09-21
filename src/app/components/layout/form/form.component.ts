@@ -1,7 +1,9 @@
 import { TodoService } from './../services/todo.service';
-import { Component } from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+
 
 @Component({
   selector: 'app-form',
@@ -10,17 +12,26 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class FormComponent {
   taskForm!: FormGroup;
-
+  taskFormUpdate!: FormGroup;
+  update :boolean = false;
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<FormComponent>,
-    private todoService : TodoService
+    private todoService : TodoService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
 
   ngOnInit() {
+    console.log(this.data)
+    if(this.data){
+      this.update = true;
+    }
     this.taskForm = this.fb.group({
       task:[''],
       subtasks: this.fb.array([])
+    });
+    this.taskFormUpdate = this.fb.group({
+      task:[this.data.item],
     });
   }
 
@@ -52,4 +63,20 @@ export class FormComponent {
     })
 
   }
+
+
+  updateTask(){
+    console.log(this.taskFormUpdate.value);
+    this.todoService.updateTask(this.taskFormUpdate.value,this.data.id).subscribe((res)=>{
+      console.log(res);
+    this.dialogRef.close();
+
+    })
+
+  }
+
+
 }
+
+
+

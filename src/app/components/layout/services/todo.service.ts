@@ -27,14 +27,16 @@ export class TodoService {
   }
 
 
-  deleteManyTodo(tasks:any[]){
-    let ids:any[] = [];
-    tasks.forEach((item:any)=>{
-      ids.push(item.node._id)
-    })
-
+  deleteManyTodo(ids:any[]){
     return this.http.post('http://localhost:8000/api/todos/deleteMany', ids);
   }
+
+  updateTask(task:any,id:any){
+    return this.http.put('http://localhost:8000/api/todos/'+id, task);
+
+  }
+
+
 }
 
 

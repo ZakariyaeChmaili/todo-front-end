@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { TodoRoutingModule } from './todo-routing.module';
-import { TodosComponent } from './todos/todos.component';
+import {  TodosComponent } from './todos/todos.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { LayoutComponent } from 'src/app/components/layout/layout.component';
 import {MatIconModule} from '@angular/material/icon';
@@ -20,6 +20,7 @@ import { TreeModule } from 'primeng/tree';
 import { NodeService } from 'src/app/components/layout/services/node.service';
 import { FormComponent } from './form/form.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { ChecklistDatabase } from 'src/app/components/layout/todos/ChecklistDatabase';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 
   ],
   providers:[
-    NodeService
+    NodeService,
+    ChecklistDatabase
   ]
 })
 export class TodoModule { }
