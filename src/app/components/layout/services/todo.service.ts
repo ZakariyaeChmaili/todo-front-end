@@ -11,30 +11,30 @@ export class TodoService {
   constructor(private http : HttpClient) { }
 
   getTodos(){
-    return this.http.get(`${this.api}/api/todos`);
+    return this.http.get(`${this.api}/todos`);
   }
 
   addTask(task : any){
-    return this.http.post(`${this.api}/api/todos`, task);
+    return this.http.post(`${this.api}/todos`, task);
   }
 
 
   markAsDone(task : any){
-    return this.http.put(`${this.api}/api/todos/`+task.id, task);
+    return this.http.put(`${this.api}/todos/`+task.id, task);
   }
 
   deleteTodo(task:any){
     console.log(task.node._id)
-    return this.http.delete(`${this.api}/api/todos/`+task.node._id);
+    return this.http.delete(`${this.api}/todos/`+task.node._id);
   }
 
 
   deleteManyTodo(ids:any[]){
-    return this.http.post(`${this.api}/api/todos/deleteMany`, ids);
+    return this.http.post(`${this.api}/todos/deleteMany`, ids);
   }
 
   updateTask(task:any,id:any){
-    return this.http.put(`${this.api}/api/todos/`+id, task);
+    return this.http.put(`${this.api}/todos/`+id, task);
 
   }
 
